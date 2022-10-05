@@ -8,22 +8,22 @@ public class StepTracker {
         if (steps < 0) {
             System.out.println("Введите положительное число шагов");
         } else {
-            dayToMonth[month][day] = steps;
+            dayToMonth[month-1][day-1] = steps;
             System.out.println(steps + " - было записанов в " + day + "-ый день " + month + "-ого месяца!");
         }
     }
 
     public void numberOfSteps(int month) {
-        for (int i = 0; i < dayToMonth[month].length - 1; i++) {
-            System.out.println((i + 1) + "-ый день: " + dayToMonth[month][i] + ",");
+        for (int i = 0; i < dayToMonth[month-1].length - 1; i++) {
+            System.out.print((i + 1) + "-ый день: " + dayToMonth[month-1][i] + ",");
         }
-        System.out.println(dayToMonth[month].length + "-ый день: " + dayToMonth[month][29]);
+        System.out.print(dayToMonth[month-1].length + "-ый день: " + dayToMonth[month-1][29]);
     }
 
     public int saveSumSteps(int month) {
         int sumSteps = 0;
-        for (int i = 0; i < dayToMonth[month].length; i++) {
-            sumSteps = sumSteps + dayToMonth[month][i];
+        for (int i = 0; i < dayToMonth[month-1].length; i++) {
+            sumSteps = sumSteps + dayToMonth[month-1][i];
 
         }
         return sumSteps;
@@ -31,24 +31,27 @@ public class StepTracker {
 
     public int saveMaxStep(int month) {
         int maxSteps = 0;
-        for (int i = 0; i < dayToMonth[month].length; i++) {
-            if (dayToMonth[month][i] > maxSteps) {
-                maxSteps = dayToMonth[month][i];
+        for (int i = 0; i < dayToMonth[month-1].length; i++) {
+            if (dayToMonth[month-1][i] > maxSteps) {
+                maxSteps = dayToMonth[month-1][i];
             }
         }
         return maxSteps;
     }
     public double averageCountOfSteps(int month){
         double sumOfSteps = saveMaxStep(month);
-        double countOfMonth = dayToMonth[month].length;
+        double countOfMonth = dayToMonth[month-1].length;
         return countOfMonth / sumOfSteps;
     }
     public int bestSeriesSteps(int month){
-        int seriesSteps = 1;
+        int currentSeriesSteps = 0;
         int maxSeriesSteps = 0;
-        for (int i = 0; i < dayToMonth[month].length; i++){
-            if (dayToMonth[month][i] >= goalOfSteps ){
-                maxSeriesSteps = maxSeriesSteps + 1;
+        for (int i = 0; i < dayToMonth[month-1].length; i++){
+            if (dayToMonth[month-1][i] >= goalOfSteps ){
+                currentSeriesSteps = currentSeriesSteps + 1;
+                if (currentSeriesSteps > maxSeriesSteps){
+                    maxSeriesSteps = currentSeriesSteps;
+                }
             }
         }
         return maxSeriesSteps;
